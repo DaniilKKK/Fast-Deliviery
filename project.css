@@ -1,0 +1,251 @@
+
+#block-body {
+    width: auto;
+    height: auto;
+}
+header 
+{
+	height: 85px;
+	background-color:black;
+
+}
+.otstup_img
+{
+	padding-left: 130px;
+}
+.main_4
+{
+	color: white;
+}
+h1, h2, h3, h4, h5, h6
+{
+	font-family: "Raleway";
+	font-weight: 300;
+	color: black;
+}
+.img_header
+{
+	
+	width: 200px;
+    height: 80px;
+}
+.Color
+{
+	font-size: 15px;
+    line-height: 1.8;
+    font-weight: 300;
+    color: gray;
+}
+.Otstup
+{
+	padding-top: 70px;
+
+}
+.Otstup_1
+{
+	padding-top: 70px;
+	animation-play-state: 70px;
+
+}
+.div_about
+{
+	height: 600px; 
+    width: auto;
+    background-repeat:  repeat-x;
+	background: url(http://project.std-1120.ist.mospolytech.ru/food.png);
+}
+.Preimushestva
+{
+	padding-top: 70px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-family: Comic Sans;
+	font-style: italic; 
+}
+.img_perevorot
+{
+	border: 10px;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+          transition:         transform .2s ease-in-out;
+
+}
+
+.img_perevorot:hover
+{
+	-webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.img_perevorot1
+{
+	border: 10px;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+          transition:         transform .2s ease-in-out;
+
+}
+
+.img_perevorot1:hover
+{
+	-webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+.opisanie
+{
+	margin-bottom: 5px;
+	text-align: center;
+	font-style: italic;
+	font-weight: 600;
+	font-size: 25px;
+}
+.cent
+{
+	text-align: center;
+}
+.cent1
+{
+	text-align: center;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+.pad
+{
+	margin-top: 5px;
+	text-align: center;
+}
+.restorante
+{
+	height: 400px; 
+}
+.paddin_g
+{
+	margin: 0 0 0 0;
+}
+
+.welcome_1
+{
+	font-weight: 400;
+	font-style: italic;
+	font-size: 20px;
+	color: white;
+}
+.welcome_2
+{
+	font-weight: 400;
+	font-style: italic;
+	font-size: 20px;
+	color: white;
+}
+.welcom_otstup
+{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.welcome_3
+{
+	margin-top: 45px;
+	color: gray;
+	margin-left: 60px;
+	margin-right: 60px;
+	text-align: center;
+
+}
+.padding
+{
+	margin-right: 10px; 
+}
+.nomer
+{
+	font-style: italic;
+	font-size: 18px;
+	color: white;	
+}
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+footer {
+  background: #022027;
+  color: #aaa;
+  padding-top: 10px;
+}
+
+footer a {
+  color: #aaa;
+}
+
+footer a:hover 
+{
+text-decoration: none;
+  color: #fff;
+}
+
+footer h3 {
+ color: #fac564;
+  letter-spacing: 1px;
+  margin: 30px 0 20px;
+}
+
+footer .three-column {
+ overflow: hidden;
+}
+
+footer .three-column li{
+ width: 33.3333%;
+  float: left;
+  padding: 5px 0;
+}
+
+footer .socila-list {
+  overflow: hidden;
+  margin: 20px 0 10px;
+}
+
+footer .socila-list li {
+  float: left;
+  margin-right: 3px;
+  opacity: 0.7;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+footer .socila-list li:hover {
+  opacity: 1;
+}
+
+footer .img-thumbnail {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid #444;
+  margin-bottom: 5px;
+}
+
+footer .copyright {
+  padding: 15px 0;
+  background: #333;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+footer .copyright span {
+  color: #fac564;
+}
+
+div.fix_block {
+	position: fixed; 
+	top: 100px; 
+	right: 30px; 
+	padding: 20px; 
+}
+
