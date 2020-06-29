@@ -13,6 +13,7 @@ let costs = [];
 let delievery_discount = document.getElementById('student_discount');
 let move_delievery = document.getElementById('fast_delievery');
 let twice_delievery = document.getElementById('double_delievery');
+let zakaz1 = document.getElementById('zakaz_delievery');
 
 function getData(){
 	let obXhr = new XMLHttpRequest();
@@ -268,6 +269,7 @@ function Choose()
 			}
 		}
 	
+	
 	let Prices = Object.values(Rest); 
 	
 	
@@ -498,10 +500,72 @@ function Deleveiry_double()
 
 
 
+function Oformlenie_zakaza()
+{
+	let inputs = document.querySelectorAll('.Amount');
+	console.log(inputs);
+	
+	let Rest_dishes = document.getElementById('positions');
+	
+	Rest_dishes.innerHTML = '';
+	
+	for (let val in inputs){
+		if (inputs[val].innerText > 0){
+			let newDiv = document.createElement('div');
+			newDiv.className = "row border border-dark mt-2 ml-2 mr-2";
+			
+			let picture = inputs[val].parentNode.parentNode.children[0].children[0].src;
+			let dish_name = inputs[val].parentNode.parentNode.children[1].innerText;
+			let price = inputs[val].parentNode.parentNode.children[3].children[0].innerText;
+			
+			
+			let amount = inputs[val].innerText;
+			
+			if (twice_delievery.checked){
+				amount = amount * 2;
+			}
+			
+			let Total = Number(price) * Number(amount);
+			
+			console.log(dish_name);
+			
+			newDiv.innerHTML = `
+				<div class = "col-2 pl-1">
+					<div class = "mt-2 pl-1 mb-2"> <img src = ${picture} width = "50px" height = "50px" > </div>
+				</div>
+			
+				<div class = "col-3 mt-2">
+					<p class = "Dish_name mt-2"> <b> ${dish_name} </b> </p>
+				</div>
+			
+				<div class = "col-4 mt-2">
+					<div class = "Kol mt-3"> ${amount} x ${price} Р. </div>
+				</div>
+				
+				<div class = "col-3">
+					<div class = "mt-2 Tot"> Суммарно: ${Total} Р. </div>
+				</div>
+
+			`
+			
+
+
+			Rest_dishes.append(newDiv);
+
+
+		}
+	}
+
+}
+
+
+
+
 Find.addEventListener('click',poisk);
 delievery_discount.addEventListener('click', Deleveiry_discount);
 move_delievery.addEventListener('click',Deleveiry_fast);
 twice_delievery.addEventListener('click',Deleveiry_double);
+zakaz1.addEventListener('click', Oformlenie_zakaza)
 //button1.addEventListener('click',Choose);
 
 
