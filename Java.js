@@ -4,6 +4,15 @@ let RestDivArr = [];
 let shetchik = 0;
 let RestDivArr1 = [];
 let shetchik1 = 0;
+let Summa=0;
+let price_value;
+let a;
+let Restaurant;
+let costs = [];
+
+let delievery_discount = document.getElementById('student_discount');
+let move_delievery = document.getElementById('fast_delievery');
+let twice_delievery = document.getElementById('double_delievery');
 
 function getData(){
 	let obXhr = new XMLHttpRequest();
@@ -105,13 +114,16 @@ function getData(){
 				{
 
 				let NewElement=document.createElement('option');
-				NewElement.innerHTML=`
+				NewElement.innerHTML=
+				`
 
 				${filter_types[i]}
 
 				`
 				type.append(NewElement);
 				}
+
+
 
 			}
 
@@ -153,6 +165,12 @@ function poisk()
 		if ((rests[i].admArea==okrug_name) && (rests[i].district== rayon_name) && (rests[i].typeObject==type_name) && (rests[i].socialPrivileges==priveligii_name)) 
 		{
 				console.log(rests[i]);
+				
+
+
+
+
+				
 
 				spisok_restoranov.innerHTML = 
 
@@ -186,6 +204,7 @@ function poisk()
 
 				newDiv.innerHTML =
 
+
 				`
 
 				<div class = "col-3 mt-3">
@@ -199,12 +218,17 @@ function poisk()
 					<div class = "col-4 mt-3 text-danger">
 						<h6 style="font-style: italic;"> ${rests[i].address} </h6>
 					</div>
+
+
 								
 					<div class = "col-3 mt-2">
 						<button class = "form-control but" style="font-style: italic;" id="button1"> Выбрать </button>    
 					</div>
 
 				`
+
+
+
 
 				RestDivArr.push(newDiv);
 					
@@ -231,6 +255,25 @@ function poisk()
 
 function Choose()
 {
+	
+	let Rest;
+	
+		let Name = event.target.parentNode.parentNode.children[0].children[0].innerText;  
+		let Address = event.target.parentNode.parentNode.children[2].children[0].innerText;
+		let Type = event.target.parentNode.parentNode.children[1].children[0].innerText;
+		
+		for (let key in rests){
+			if (rests[key].address == Address && rests[key].name == Name && rests[key].typeObject == Type){
+				Rest = rests[key];
+			}
+		}
+	
+	let Prices = Object.values(Rest); 
+	
+	
+	Prices.splice(0, 15);  
+
+
 	let obXhr = new XMLHttpRequest();
 	
 	obXhr.open('GET', 'json');
@@ -257,31 +300,208 @@ function Choose()
 				set.className = "col-xl-4 col-md-6 col-12"
 
 
+
+
 				set.innerHTML = `
 				
-					<p> <img src = "${result[i].img}" width = "100%" style="border-radius: 100px; /* Радиус скругления */
-    box-shadow: 0 0 0 3px green, 0 0 13px #333;"> </p>
+					<p> <img src = "${result[i].img}" width = "100%" style="border-radius: 100px;  box-shadow: 0 0 0 3px green, 0 0 13px #333;"> </p>
 					<h4 class = "text-center MenuName" style="font-style: italic;  color: #fac564;"> ${result[i].Name} </h4>
-					<p class = "opinion text-center" style="font-style: italic; color: white;"> ${result[i].Description} </p>	
-
-					<div class = "text-center mb-2">
-						<button class = "butMin"> - </button>
+					<p class = "opinion text-center" style="font-style: italic; color: white;"> ${result[i].Description} </p>
+					<h4 class = "text-center" style="font-style: italic; color: #fac564 ;"> <span>${Prices[i]}</span> руб. </h4>
+					<div class = "text-center mb-3">
+						<button class="delete"> - </button>
 						<div class = "Amount"; style = "width: 100px; display: inline-block; border: 2px solid white; ; color: white"> 0 </div>
-						<button class = "butPl"> + </button> 
+						<button class="add"> + </button> 
 					</div>
 					
 				`
 				
-				ShowMenu.append(set);
-
-
+				ShowMenu.append(set);		
 			}
+
+			zakaz();
 		}
 	}
 	
 }
 
+
+function delete_value()
+{
+
+	if (event.target.parentNode.children[1].innerText > 0)
+	{
+	event.target.parentNode.children[1].innerText--;
+	
+	let price_value = event.target.parentNode.parentNode.children[3].children[0].innerText;
+
+	
+	Summa = Number(Summa) - Number(price_value);
+
+	
+	let Total = document.getElementById('Total');
+	console.log(Total);
+	
+	Total.innerHTML = '';
+	
+	let newH2 = document.createElement('h2');
+	
+	newH2.innerHTML = 
+	`
+	Итого: ${Summa} Руб.
+	`
+	
+	Total.append(newH2);
+}
+}
+
+
+function add_value()
+{
+	if (event.target.parentNode.children[1].innerText>=0)
+	{
+		event.target.parentNode.children[1].innerText++;
+	
+	
+	let Price = event.target.parentNode.parentNode.children[3].children[0].innerText;
+
+	
+	Summa = Number(Summa) + Number(Price);
+	console.log(Summa);
+	
+	let Total = document.getElementById('Total');
+	console.log(Total);
+	
+	Total.innerHTML = '';
+	
+	let newH2 = document.createElement('h2');
+	
+	newH2.innerHTML = 
+	`
+	<span style="font-style: italic; color: #fac564;">Итого: ${Summa} Руб.</span>
+	`
+	
+	Total.append(newH2);
+}
+}
+
+function zakaz()
+{
+	let removal =document.querySelectorAll('.delete');
+
+			for( let i of removal) 
+
+			{
+				i.addEventListener('click', delete_value);
+			}
+
+
+			let addition = document.querySelectorAll('.add');
+			
+			for (let i of addition)
+			{
+				i.addEventListener('click', add_value);
+			}
+}
+
+function Deleveiry_discount()
+{
+	
+
+
+
+
+	let skidka=0;
+	
+	if (delievery_discount.checked)
+	{
+		skidka = Summa / 10;
+		Summa = Summa - skidka;
+	}
+	else
+	{
+		skidka = Summa / 9;
+		Summa = Summa + skidka;
+	}
+	
+	Summa = Math.floor(Summa);
+	
+	let Total = document.getElementById('Total');
+	Total.innerHTML = '';	
+	let newH2 = document.createElement('h2');
+	newH2.innerHTML = 
+	`
+	<span style="font-style: italic; color: #fac564;">Итого: ${Summa} Руб.</span>
+	`
+	Total.append(newH2);
+}
+
+function Deleveiry_fast()
+{
+
+	
+	
+
+	let skidka_1;
+	
+	if (move_delievery.checked)
+	{
+		let skidka_1 = Summa / 5;
+		Summa = Summa + skidka_1;
+	}
+	else
+	{
+		let skidka_1 = Summa / 6;
+		Summa = Summa - skidka_1;
+	}
+	
+	Summa = Math.floor(Summa);
+	
+	let Total = document.getElementById('Total');
+	Total.innerHTML = '';	
+	let newH2 = document.createElement('h2');
+	newH2.innerHTML = 
+	`
+	<span style="font-style: italic; color: #fac564;">Итого: ${Summa} Руб.</span>
+	`
+	Total.append(newH2)
+}
+
+function Deleveiry_double()
+{
+
+
+
+	let skidka2;
+
+	if (twice_delievery.checked)
+	{
+		let skidka2 = Summa * 0.6;
+		Summa = Summa + skidka2;
+	}
+	else
+	{
+		Summa = Summa / 1.6;
+	}
+	
+	Summa = Math.floor(Summa);
+	
+	let Total = document.getElementById('Total');
+	Total.innerHTML = '';	
+	let newH2 = document.createElement('h2');
+	newH2.innerHTML = 
+	`
+	<span style="font-style: italic; color: #fac564;">Итого: ${Summa} Руб.</span>
+	`
+	Total.append(newH2);
+}
+
+
+
 Find.addEventListener('click',poisk);
+delievery_discount.addEventListener('click', Deleveiry_discount);
+move_delievery.addEventListener('click',Deleveiry_fast);
+twice_delievery.addEventListener('click',Deleveiry_double);
 //button1.addEventListener('click',Choose);
 
 
