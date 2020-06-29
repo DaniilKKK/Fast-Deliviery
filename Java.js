@@ -201,7 +201,7 @@ function poisk()
 					</div>
 								
 					<div class = "col-3 mt-2">
-						<button class = "form-control but" style="font-style: italic;"> Выбрать </button>    
+						<button class = "form-control but" style="font-style: italic;" id="button1"> Выбрать </button>    
 					</div>
 
 				`
@@ -220,20 +220,73 @@ function poisk()
 
 				//spisok_restoranov.append(NewElement);
 
+				button1.addEventListener('click',Choose);
+
 				}
 
 		}
 		
-
 }
 
 
+function Choose()
+{
+	let obXhr = new XMLHttpRequest();
+	
+	obXhr.open('GET', 'json');
+	obXhr.send();
+
+
+	let ShowMenu = document.getElementById('menu');
+	console.log(ShowMenu);
+
+	ShowMenu.innerHTML = '';
+
+
+
+	obXhr.onreadystatechange = function(){
+		if(obXhr.readyState != 4) return;
+
+		if(obXhr.response){
+			let result = JSON.parse(obXhr.response);
+			
+			console.log(result);
+	
+			for (let i in result){
+				let set = document.createElement('div');
+				set.className = "col-xl-4 col-md-6 col-12"
+
+
+				set.innerHTML = `
+				
+					<p> <img src = "${result[i].img}" width = "100%" style="border-radius: 100px; /* Радиус скругления */
+    box-shadow: 0 0 0 3px green, 0 0 13px #333;"> </p>
+					<h4 class = "text-center MenuName" style="font-style: italic;  color: #fac564;"> ${result[i].Name} </h4>
+					<p class = "opinion text-center" style="font-style: italic; color: white;"> ${result[i].Description} </p>	
+
+					<div class = "text-center mb-2">
+						<button class = "butMin"> - </button>
+						<div class = "Amount"; style = "width: 100px; display: inline-block; border: 2px solid white; ; color: white"> 0 </div>
+						<button class = "butPl"> + </button> 
+					</div>
+					
+				`
+				
+				ShowMenu.append(set);
+
+
+			}
+		}
+	}
+	
+}
+
 Find.addEventListener('click',poisk);
-
-
+//button1.addEventListener('click',Choose);
 
 
 getData();
+//Choose();
 
 
 
