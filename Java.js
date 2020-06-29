@@ -1,19 +1,20 @@
 
 let rests;
-let RestDivArr = [];
+let restoran_mass = [];
 let shetchik = 0;
-let RestDivArr1 = [];
 let shetchik1 = 0;
 let Summa=0;
 let price_value;
 let a;
-let Restaurant;
 let costs = [];
 
 let delievery_discount = document.getElementById('student_discount');
 let move_delievery = document.getElementById('fast_delievery');
 let twice_delievery = document.getElementById('double_delievery');
 let zakaz1 = document.getElementById('zakaz_delievery');
+let get_rest = document.getElementById('positions');
+let get_info = document.getElementById('Info');
+let get_total = document.getElementById('Final')
 
 function getData(){
 	let obXhr = new XMLHttpRequest();
@@ -33,6 +34,7 @@ function getData(){
 			if(obXhr.response){
 				let result = JSON.parse(obXhr.response);
 				console.log(result);
+				
 				rests=result;
 
 				let okruga=[];
@@ -231,7 +233,7 @@ function poisk()
 
 
 
-				RestDivArr.push(newDiv);
+				restoran_mass.push(newDiv);
 					
 				if (shetchik < 10){
 					Mesta.append(newDiv);
@@ -257,7 +259,7 @@ function poisk()
 function Choose()
 {
 	
-	let Rest;
+
 	
 		let Name = event.target.parentNode.parentNode.children[0].children[0].innerText;  
 		let Address = event.target.parentNode.parentNode.children[2].children[0].innerText;
@@ -266,6 +268,8 @@ function Choose()
 		for (let key in rests){
 			if (rests[key].address == Address && rests[key].name == Name && rests[key].typeObject == Type){
 				Rest = rests[key];
+
+
 			}
 		}
 	
@@ -502,59 +506,90 @@ function Deleveiry_double()
 
 function Oformlenie_zakaza()
 {
-	let inputs = document.querySelectorAll('.Amount');
-	console.log(inputs);
-	
-	let Rest_dishes = document.getElementById('positions');
-	
-	Rest_dishes.innerHTML = '';
-	
-	for (let val in inputs){
-		if (inputs[val].innerText > 0){
-			let newDiv = document.createElement('div');
-			newDiv.className = "row border border-dark mt-2 ml-2 mr-2";
-			
-			let picture = inputs[val].parentNode.parentNode.children[0].children[0].src;
-			let dish_name = inputs[val].parentNode.parentNode.children[1].innerText;
-			let price = inputs[val].parentNode.parentNode.children[3].children[0].innerText;
-			
-			
-			let amount = inputs[val].innerText;
-			
-			if (twice_delievery.checked){
-				amount = amount * 2;
-			}
-			
-			let Total = Number(price) * Number(amount);
-			
-			console.log(dish_name);
-			
-			newDiv.innerHTML = `
-				<div class = "col-2 pl-1">
-					<div class = "mt-2 pl-1 mb-2"> <img src = ${picture} width = "50px" height = "50px" > </div>
-				</div>
-			
-				<div class = "col-3 mt-2">
-					<p class = "Dish_name mt-2"> <b> ${dish_name} </b> </p>
-				</div>
-			
-				<div class = "col-4 mt-2">
-					<div class = "Kol mt-3"> ${amount} x ${price} Р. </div>
-				</div>
-				
-				<div class = "col-3">
-					<div class = "mt-2 Tot"> Суммарно: ${Total} Р. </div>
-				</div>
-
-			`
-			
 
 
-			Rest_dishes.append(newDiv);
+	get_rest.innerHTML='';
+
+	let newDiv=document.createElement('div');
+
+	newDiv.innerHTML=
+	`
+		<div class="row">
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Название: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> ${Rest.name} </h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Адрес: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> ${Rest.address} </h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Район: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> ${Rest.district} </h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Административный округ: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> ${Rest.admArea} </h6>
+		</div>
+		</div>
+	`
+	get_rest.append(newDiv);
 
 
-		}
-	}
+	get_info.innerHTML='';
+
+	let newDiv2=document.createElement('div');
+
+	newDiv2.innerHTML=
+	`
+		<div class="row">
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>ФИО: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><input></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Адрес: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> <input> </h6>
+		</div>
+				<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"><span>Стоимость доставки: </span></h6>
+		</div>
+		<div class = "col-6 mt-3">
+			<h6 style="font-style: italic;"> <span>500 руб.</span></h6>
+		</div>
+		</div>
+	`
+	get_info.append(newDiv2);
+
+	get_total.innerHTML='';
+
+	let newDiv1=document.createElement('div');
+
+	newDiv1.innerHTML=
+	`
+		<div class="row">
+		<div class = "col-6 mt-3">
+			<h4 class= "text-success" style="font-style: italic;"><span>Итого: </span></h4>
+		</div>
+		<div class = "col-6 mt-3">
+			<h5 style="font-style: italic;"> ${Summa+500} <span> руб.</span> </h5>
+		</div>
+	`
+	get_total.append(newDiv1);
+
+
 
 }
 
